@@ -1,0 +1,36 @@
+<link rel="import" href="../polymer/polymer.html">
+
+<dom-module id="my-crop">
+
+  <style>
+  </style>
+
+  <template>
+    <span>[[text]]</span>
+    <content id="cnt"></content>
+  </template>
+
+  <script>
+    Polymer({
+      is: 'my-crop',
+      properties: {
+        text: {
+          type: String,
+          notify: true,
+          value: ""
+        },
+        maxlen: { type: Number, notify: true, value: 30 }
+      },
+      attached: function() {
+        var cnt = Polymer.dom(this.$.cnt).getDistributedNodes();
+        var txt = cnt[0].data.trim();
+        if (txt && txt.length > this.maxlen ) {
+          txt = txt.substring(0,this.maxlen-2)+"..";
+        }
+        cnt[0].data = '';
+        this.set("text",txt);
+      }
+    });
+  </script>
+
+</dom-module>

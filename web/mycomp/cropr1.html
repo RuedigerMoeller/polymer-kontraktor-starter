@@ -1,0 +1,38 @@
+<link rel="import" href="../polymer/polymer.html">
+
+<dom-module id="my-crop1">
+
+  <style>
+  </style>
+
+  <template>
+    <span>[[text]]</span>
+  </template>
+
+  <script>
+    Polymer({
+      is: 'my-crop1',
+      properties: {
+        text: {
+          type: String,
+          notify: true,
+          value: ""
+        },
+        maxlen: { type: Number, notify: true, value: 30 }
+      },
+      attached: function() {
+        var self = this;
+        var listener = function () {
+          var txt = self.text;
+          if (txt && txt.length > self.maxlen) {
+            txt = txt.substring(0, self.maxlen - 2) + "..";
+            self.set("text", txt);
+          }
+        };
+        self.addEventListener("text-changed", listener);
+        listener.apply(this);
+      }
+    });
+  </script>
+
+</dom-module>

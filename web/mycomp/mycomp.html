@@ -1,6 +1,8 @@
 <link rel="import" href="../polymer/polymer.html">
 <link rel="import" href="../paper-input/paper-input.html">
 <link rel="import" href="person.html">
+<link rel="import" href="cropr.html">
+<link rel="import" href="cropr1.html">
 
 <dom-module id="my-comp">
 
@@ -8,6 +10,8 @@
   </style>
 
   <template>
+    <my-crop maxlen="10"> 012345678901234567890 </my-crop>
+    <my-crop1 text="012345678901234567890" maxlen="10"></my-crop1>
     <span>{{data}}</span>
     <input type="text" value="{{data::input}}" on-blur="annotatedBlur">
 
