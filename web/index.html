@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta charset="utf-8">
+  <title>Kontraktor + Polymer Minimal Starter</title>
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <script src="webcomponentsjs/webcomponents-lite.js"></script>
+  <link rel="import" href="polymer/polymer.html">
+
+  <!-- kontraktor specific polymer components -->
+  <link rel="import" href="js4k/js4k.html">
+
+  <template is="dom-bind" id="app">
+    <span>{{data}}</span>
+  </template>
+
+</head>
+
+<body>
+
+<h1>hello !</h1>
+
+</body>
+
+<script>
+  app = document.querySelector('#app');
+  var count = 0;
+  // The dom-change event signifies when the template has stamped its DOM.
+  app.addEventListener('dom-change', function(ev) {
+    console.log("dom-change "+ev);
+    app.set("data","Halli Hallo "+count);
+    count++;
+  });
+</script>
+
+</html>
