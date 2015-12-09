@@ -1,0 +1,90 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../paper-input/paper-input.html">
+<link rel="import" href="person.html">
+
+<dom-module id="my-comp">
+
+  <style>
+  </style>
+
+  <template>
+    <span>{{data}}</span>
+    <input type="text" value="{{data::input}}" on-blur="annotatedBlur">
+
+    <paper-input value="{{data}}" on-value-changed="valChange"></paper-input>
+
+    <template is="dom-if" if="{{mybool}}">Kuckuck</template><br>
+    <template is="dom-repeat" items="{{arr}}" as="item">
+      <b>{{item.pname}}</b> <i>{{item.name}}</i><br>
+    </template>
+
+    <my-person person="{{user}}">Trullala</my-person><br><br>
+
+    <my-person on-kick="ourKick" id="mp"></my-person>
+  </template>
+
+  <script>
+    Polymer({
+      is: 'my-comp',
+
+      properties: {
+        user: { type: Object, value: { name: 'XXXXXX', pname: 'asdasd' }, notify: true },
+        interval: { type: Number, value: 5000, notify: true },
+        max_idx: { type: Number, value: 10, notify: true },
+        mybool: { type: Boolean, value: "", notify: true },
+        arr: { type: Array, value: [], notify: true },
+        data: { type: String, value: "hallo", notify: true }
+      },
+
+      attached: function() {
+
+        this.set("arr", [
+          { pname: "Udo", name: "Roth" },
+          { pname: "Fred", name: "Walther" },
+          { pname: "Ruediger", name: "Möller" }
+        ]);
+
+        var count = 0;
+        var self = this;
+        var code = function () {
+          count++;
+          self.set("data", "count " + count);
+          self.set("mybool", ! app.mybool );
+
+          if ( count == 3 ) {
+            self.$.mp.addEventListener("person-changed", function(ev) {
+              console.log("person-changed"+ev); // programatically listen to property change
+            });
+            self.$.mp.set("person", { name:'POKPOK', pname: 'PAKPAK'} ); // $ works only for static template elements
+            self.set("arr.1.pname", "Alfred" );
+          }
+          if ( self.arr.length < self.max_idx ) {
+            self.push("arr", { pname: "x", name: "y"+count } );
+          }
+          setTimeout( code, self.interval );
+        };
+        code.apply(code);
+
+      },
+
+      ourMouseUp: function(ev) {
+        console.log("ourmouseup",ev);
+      },
+      annotatedBlur: function(ev) {
+        console.log("annotatedBlur",ev);
+      },
+      ourKick: function(ev) {
+        console.log("ourKick",ev);
+      },
+      valChange: function(ev) {
+        console.log("valChange",ev);
+      },
+      listeners: { // listen to events on this
+        mouseup: 'ourMouseUp'
+      }
+
+    });
+  </script>
+
+</dom-module>
+

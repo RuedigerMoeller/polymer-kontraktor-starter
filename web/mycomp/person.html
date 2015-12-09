@@ -1,0 +1,35 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../paper-card/paper-card.html">
+
+<dom-module id="my-person">
+
+  <style>
+  </style>
+
+  <template>
+    <paper-card heading="{{compute(person)}}">
+      <b on-click="oncl">{{person.pname}}</b>
+      <content></content>
+      <i>{{person.name}}</i>
+    </paper-card>
+  </template>
+
+  <script>
+    Polymer({
+      is: 'my-person',
+
+      properties: {
+        person: { type: Object, value: null, notify: true }
+      },
+      compute: function( person ) {
+        return person ? this.person.name+", "+this.person.pname : "-";
+      },
+      oncl: function(ev) {
+        this.fire("kick", { x: "was weiss ich", y: "treu" });
+      }
+
+    });
+  </script>
+
+</dom-module>
+

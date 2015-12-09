@@ -14,13 +14,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <script src="webcomponentsjs/webcomponents-lite.js"></script>
+
   <link rel="import" href="polymer/polymer.html">
+  <link rel="import" href="paper-input/paper-input.html">
+  <link rel="import" href="mycomp/mycomp.html">
 
   <!-- kontraktor specific polymer components -->
   <link rel="import" href="js4k/js4k.html">
 
   <template is="dom-bind" id="app">
-    <span>{{data}}</span>
+    <my-comp max_idx="5" interval="1000"></my-comp>
   </template>
 
 </head>
@@ -33,13 +36,6 @@
 
 <script>
   app = document.querySelector('#app');
-  var count = 0;
-  // The dom-change event signifies when the template has stamped its DOM.
-  app.addEventListener('dom-change', function(ev) {
-    console.log("dom-change "+ev);
-    app.set("data","Halli Hallo "+count);
-    count++;
-  });
 </script>
 
 </html>
